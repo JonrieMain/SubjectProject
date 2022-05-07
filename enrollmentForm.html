@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Enrollment Form</title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		.con{
+			height: 100vh;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+		}
+		.con form{
+			display: flex;
+			flex-direction: column;
+			box-shadow: -1px 1px 5px 3px rgba(0,0,0,0.63);
+			-webkit-box-shadow: -1px 1px 5px 3px rgba(0,0,0,0.63);
+			-moz-box-shadow: -1px 1px 5px 3px rgba(0,0,0,0.63);
+			padding: 2rem 1rem;
+			border-radius: 9px;
+		}
+		.con form input{
+			margin: .5rem 0;
+			padding: .5rem .2rem;
+		}
+		.con form #errorFillUp,#errorConfirmPass{
+			color: red;
+		}
+		.con form #errorEmailInvalid{
+			color: red;
+		}
+
+	</style>
+</head>
+<body>
+
+
+	<div class="con">
+
+		<form>
+			<h1>Online Enrollment</h1>
+			<p style="display: none;" id="errorFillUp">Error! Please fill up the form</p>
+			<input required type="text" name="firstName" id="firstName" placeholder="FirstName">
+			<input required type="text" name="lastName" id="lastName" placeholder="lastName">
+			<p style="display: none;" id="errorEmailInvalid">Error! Your email is invalid</p>
+			<input required type="email" name="email" id="email" placeholder="Email">
+			<input required type="number" name="userID" id="userID" placeholder="User ID">
+			<p style="display: none;" id="errorConfirmPass">Error! Password doesn't match</p>
+			<input required type="password" name="password" id="password" placeholder="Password">
+			<input required type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+			<input style="cursor: pointer;" id="submit" type="button" value="Submit" name="">
+		</form>
+
+	</div>
+
+
+</body>
+<script type="text/javascript">
+
+let fname = document.querySelector('#firstName');
+let lname = document.querySelector('#lastName');
+let email = document.querySelector('#email');
+let userID = document.querySelector('#userID');
+let pass = document.querySelector('#password');
+let confirmPass = document.querySelector('#confirmPassword');
+let submit = document.querySelector('#submit');
+let errorFillUp = document.querySelector('#errorFillUp');
+let errorConfirmPass = document.querySelector('#errorConfirmPass');
+let errorEmailInvalid = document.querySelector('#errorEmailInvalid');
+var validateEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+submit.addEventListener('click', ()=>{
+	if (fname.value === "" || lname.value === "" || email.value === "" || userID.value === "" || pass.value === "" || confirmPass.value === "" ){
+		errorFillUp.style.display="block";
+		errorConfirmPass.style.display="none";
+		errorEmailInvalid.style.display="none";
+	}else if(confirmPass.value != pass.value){
+		errorConfirmPass.style.display="block";
+		errorFillUp.style.display="none";
+		errorEmailInvalid.style.display="none";
+	}else if(email.value.match(validateEmail) && fname.value != "" && lname.value != "" && email.value != "" && userID.value != "" && pass.value != "" && confirmPass.value != "" && confirmPass.value === pass.value){
+		alert("Sucess!"+'\n'+"First Name: "+fname.value+'\n'+"Last Name: "+lname.value+'\n'+"Email: "+email.value+'\n'+"User ID: "+userID.value+'\n'+"Password: "+pass.value)
+		location.reload();
+	}else{
+		errorFillUp.style.display="none";
+		errorConfirmPass.style.display="none";
+		errorEmailInvalid.style.display="block";
+	}
+		
+	
+});
+
+</script>
+</html>
